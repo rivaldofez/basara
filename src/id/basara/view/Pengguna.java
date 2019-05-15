@@ -48,6 +48,7 @@ public class Pengguna extends javax.swing.JFrame implements Observer {
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         transaksiController.addObserver(this);
         setAtribut(atributController.getAllData("kategori","sampah"),cb_ktgsampah);
+        setAtribut(atributController.getAllData("kategori","produk"),cb_ktgproduk);
         
         //setTransaksiTable(TransaksiController.getAllProduct());
         
@@ -120,6 +121,19 @@ public class Pengguna extends javax.swing.JFrame implements Observer {
         lb_date = new javax.swing.JLabel();
         lb_time = new javax.swing.JLabel();
         belanja = new javax.swing.JPanel();
+        lb_ktgproduk = new javax.swing.JLabel();
+        cb_ktgproduk = new javax.swing.JComboBox();
+        cb_namaproduk = new javax.swing.JComboBox();
+        lb_namasampah1 = new javax.swing.JLabel();
+        lb_hargaproduk = new javax.swing.JLabel();
+        lb_genhargaproduk = new javax.swing.JLabel();
+        tf_jumlahproduk = new javax.swing.JTextField();
+        lb_jumlahproduk = new javax.swing.JLabel();
+        lb_totalproduk = new javax.swing.JLabel();
+        lb_gentotalproduk = new javax.swing.JLabel();
+        bt_belanja = new javax.swing.JButton();
+        bt_hitung1 = new javax.swing.JButton();
+        lb_menubelanja = new javax.swing.JLabel();
         rekening = new javax.swing.JPanel();
         riwayat = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -777,7 +791,7 @@ public class Pengguna extends javax.swing.JFrame implements Observer {
                 .addGroup(setorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lb_total1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lb_gentotal, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addGroup(setorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bt_Setor, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bt_hitung, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -786,17 +800,118 @@ public class Pengguna extends javax.swing.JFrame implements Observer {
 
         menu.add(setor, "setor");
 
-        belanja.setBackground(new java.awt.Color(51, 255, 0));
+        belanja.setBackground(new java.awt.Color(255, 255, 255));
+
+        lb_ktgproduk.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lb_ktgproduk.setText("Kategori");
+
+        cb_ktgproduk.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cb_ktgproduk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_ktgprodukActionPerformed(evt);
+            }
+        });
+
+        cb_namaproduk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_namaprodukActionPerformed(evt);
+            }
+        });
+
+        lb_namasampah1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lb_namasampah1.setText("Nama Produk");
+
+        lb_hargaproduk.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lb_hargaproduk.setText("Harga");
+
+        lb_genhargaproduk.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+
+        lb_jumlahproduk.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lb_jumlahproduk.setText("Jumlah");
+
+        lb_totalproduk.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lb_totalproduk.setText("Total");
+
+        lb_gentotalproduk.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+
+        bt_belanja.setText("Belanja");
+        bt_belanja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_belanjaActionPerformed(evt);
+            }
+        });
+
+        bt_hitung1.setText("Hitung");
+        bt_hitung1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_hitung1ActionPerformed(evt);
+            }
+        });
+
+        lb_menubelanja.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        lb_menubelanja.setText("BELANJA");
 
         javax.swing.GroupLayout belanjaLayout = new javax.swing.GroupLayout(belanja);
         belanja.setLayout(belanjaLayout);
         belanjaLayout.setHorizontalGroup(
             belanjaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1014, Short.MAX_VALUE)
+            .addGroup(belanjaLayout.createSequentialGroup()
+                .addGap(104, 104, 104)
+                .addGroup(belanjaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(belanjaLayout.createSequentialGroup()
+                        .addComponent(bt_belanja)
+                        .addGap(18, 18, 18)
+                        .addComponent(bt_hitung1))
+                    .addComponent(lb_totalproduk, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(belanjaLayout.createSequentialGroup()
+                        .addGroup(belanjaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lb_namasampah1, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lb_hargaproduk, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lb_ktgproduk, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lb_jumlahproduk, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(107, 107, 107)
+                        .addGroup(belanjaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cb_ktgproduk, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lb_genhargaproduk, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cb_namaproduk, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lb_gentotalproduk, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(tf_jumlahproduk, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, belanjaLayout.createSequentialGroup()
+                .addContainerGap(413, Short.MAX_VALUE)
+                .addComponent(lb_menubelanja, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(375, 375, 375))
         );
         belanjaLayout.setVerticalGroup(
             belanjaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 583, Short.MAX_VALUE)
+            .addGroup(belanjaLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(lb_menubelanja, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(belanjaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lb_ktgproduk, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cb_ktgproduk))
+                .addGap(22, 22, 22)
+                .addGroup(belanjaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lb_namasampah1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cb_namaproduk, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE))
+                .addGap(32, 32, 32)
+                .addGroup(belanjaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lb_genhargaproduk, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lb_hargaproduk, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
+                .addGroup(belanjaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lb_jumlahproduk, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tf_jumlahproduk, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(belanjaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lb_totalproduk, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lb_gentotalproduk, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addGroup(belanjaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bt_belanja, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bt_hitung1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(85, 85, 85))
         );
 
         menu.add(belanja, "belanja");
@@ -1158,7 +1273,9 @@ public class Pengguna extends javax.swing.JFrame implements Observer {
         String waktu_setor = lb_time.getText();
         int jumlah = Integer.parseInt(tf_jumlah.getText());
         String Status = "PENDING";
-        String kode_sampah = atributController.getByCondition("kode", "sampah", "nama='"+cb_namasampah.getSelectedItem()+"'");
+        Double total = Double.parseDouble(lb_gentotal.getText());
+        
+        String kode_sampah = atributController.getByCondition("kode_Sampah", "sampah", "nama='"+cb_namasampah.getSelectedItem()+"'");
         String no_pengguna = "12345678";
         String kode_branch = "BR01";
         
@@ -1166,6 +1283,37 @@ public class Pengguna extends javax.swing.JFrame implements Observer {
         Transaksi p = new Transaksi(id_setor, tgl_setor, waktu_setor, jumlah,Status, kode_sampah, no_pengguna, "PGW110", kode_branch);        
         transaksiController.manipulate(p,CrudState.INSERT, "setor_sampah");
     }//GEN-LAST:event_bt_SetorActionPerformed
+
+    private void cb_ktgprodukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_ktgprodukActionPerformed
+      setAtribut(atributController.getAllData("nama","produk",("kategori='"+cb_ktgproduk.getSelectedItem()+"'")),cb_namaproduk);
+    }//GEN-LAST:event_cb_ktgprodukActionPerformed
+
+    private void cb_namaprodukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_namaprodukActionPerformed
+       lb_genhargaproduk.setText(atributController.getByCondition("harga_jual", "produk", "nama='"+cb_namaproduk.getSelectedItem()+"'"));
+    }//GEN-LAST:event_cb_namaprodukActionPerformed
+
+    private void bt_belanjaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_belanjaActionPerformed
+        String id_belanja = "1111111";
+        String tgl_belanja = lb_date.getText();
+        String waktu_belanja = lb_time.getText();
+        int jumlah_produk = Integer.parseInt(tf_jumlahproduk.getText());
+        String Status = "PENDING";
+        Double total = Double.parseDouble(lb_gentotalproduk.getText());
+        
+        String kode_produk = atributController.getByCondition("kode_produk", "produk", "nama='"+cb_namaproduk.getSelectedItem()+"'");
+        String no_pengguna = "12345678";
+        String kode_branch = "BR01";
+        
+        
+        Transaksi p = new Transaksi(id_belanja, tgl_belanja, waktu_belanja, jumlah_produk,Status, kode_produk, no_pengguna, "PGW110", kode_branch);        
+        transaksiController.manipulate(p,CrudState.INSERT, "belanja_produk");
+    }//GEN-LAST:event_bt_belanjaActionPerformed
+
+    private void bt_hitung1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_hitung1ActionPerformed
+       double total=0;
+       total = Double.parseDouble(tf_jumlahproduk.getText())*Double.parseDouble(lb_genhargaproduk.getText());
+      lb_gentotalproduk.setText(Double.toString(total));
+    }//GEN-LAST:event_bt_hitung1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1216,7 +1364,9 @@ public class Pengguna extends javax.swing.JFrame implements Observer {
     private javax.swing.JPanel belanja;
     private javax.swing.JPanel beranda1;
     private javax.swing.JButton bt_Setor;
+    private javax.swing.JButton bt_belanja;
     private javax.swing.JButton bt_hitung;
+    private javax.swing.JButton bt_hitung1;
     private javax.swing.JButton btnBelanja;
     private javax.swing.JButton btnBeranda;
     private javax.swing.JButton btnExit;
@@ -1225,7 +1375,9 @@ public class Pengguna extends javax.swing.JFrame implements Observer {
     private javax.swing.JButton btnRekening;
     private javax.swing.JButton btnRiwayat;
     private javax.swing.JButton btnSetor;
+    private javax.swing.JComboBox cb_ktgproduk;
     private javax.swing.JComboBox cb_ktgsampah;
+    private javax.swing.JComboBox cb_namaproduk;
     private javax.swing.JComboBox cb_namasampah;
     private javax.swing.JPanel header;
     private javax.swing.JPanel header2;
@@ -1251,15 +1403,23 @@ public class Pengguna extends javax.swing.JFrame implements Observer {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JComboBox jenis_transaksi;
     private javax.swing.JLabel lb_date;
+    private javax.swing.JLabel lb_genhargaproduk;
     private javax.swing.JLabel lb_genhargasampah;
     private javax.swing.JLabel lb_genhargasampah1;
     private javax.swing.JLabel lb_gentotal;
+    private javax.swing.JLabel lb_gentotalproduk;
+    private javax.swing.JLabel lb_hargaproduk;
     private javax.swing.JLabel lb_hargasampah;
     private javax.swing.JLabel lb_jumlah;
+    private javax.swing.JLabel lb_jumlahproduk;
+    private javax.swing.JLabel lb_ktgproduk;
     private javax.swing.JLabel lb_ktgsampah;
+    private javax.swing.JLabel lb_menubelanja;
     private javax.swing.JLabel lb_namasampah;
+    private javax.swing.JLabel lb_namasampah1;
     private javax.swing.JLabel lb_time;
     private javax.swing.JLabel lb_total1;
+    private javax.swing.JLabel lb_totalproduk;
     private javax.swing.JPanel menu;
     private javax.swing.JPanel panel;
     private javax.swing.JPanel pnlBelanja;
@@ -1272,12 +1432,23 @@ public class Pengguna extends javax.swing.JFrame implements Observer {
     private javax.swing.JPanel setor;
     private javax.swing.JTable tb_riwayat;
     private javax.swing.JTextField tf_jumlah;
+    private javax.swing.JTextField tf_jumlahproduk;
     private javax.swing.JLabel title;
     // End of variables declaration//GEN-END:variables
 
     @Override
     public void update(Observable o, Object arg) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (o==transaksiController){
+            if (arg==null){
+                JOptionPane.showMessageDialog(this, "Produk gagal ditambah ke database");
+            }else{            
+                Transaksi p = (Transaksi) arg;
+                if (transaksiController.getCrudState() == CrudState.INSERT){
+                    JOptionPane.showMessageDialog(this, " berhasil ditambahkan");
+                }
+             
+            }            
+        }
     }
 
 

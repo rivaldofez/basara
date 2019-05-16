@@ -80,6 +80,8 @@ public class Pengguna extends javax.swing.JFrame implements Observer {
         jLabel1 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        lb_time = new javax.swing.JLabel();
+        lb_date = new javax.swing.JLabel();
         panel = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         pnlBeranda = new javax.swing.JPanel();
@@ -117,9 +119,6 @@ public class Pengguna extends javax.swing.JFrame implements Observer {
         lb_gentotal = new javax.swing.JLabel();
         tf_jumlah = new javax.swing.JTextField();
         bt_hitung = new javax.swing.JButton();
-        lb_genhargasampah1 = new javax.swing.JLabel();
-        lb_date = new javax.swing.JLabel();
-        lb_time = new javax.swing.JLabel();
         belanja = new javax.swing.JPanel();
         lb_ktgproduk = new javax.swing.JLabel();
         cb_ktgproduk = new javax.swing.JComboBox();
@@ -250,10 +249,10 @@ public class Pengguna extends javax.swing.JFrame implements Observer {
         jButton12.setContentAreaFilled(false);
         jButton12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-exit-20.png"))); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/exit_20px.png"))); // NOI18N
         jButton1.setContentAreaFilled(false);
 
-        jLabel1.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel1.setText("Logout");
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/basara.png"))); // NOI18N
@@ -261,6 +260,10 @@ public class Pengguna extends javax.swing.JFrame implements Observer {
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         jLabel2.setText("Helo,");
+
+        lb_time.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+
+        lb_date.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
 
         javax.swing.GroupLayout header2Layout = new javax.swing.GroupLayout(header2);
         header2.setLayout(header2Layout);
@@ -276,10 +279,18 @@ public class Pengguna extends javax.swing.JFrame implements Observer {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(11, 11, 11))
+                .addGroup(header2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, header2Layout.createSequentialGroup()
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel1)
+                        .addGap(11, 11, 11))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, header2Layout.createSequentialGroup()
+                        .addComponent(lb_time, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(header2Layout.createSequentialGroup()
+                        .addComponent(lb_date, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(4, 4, 4))))
         );
         header2Layout.setVerticalGroup(
             header2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -290,17 +301,22 @@ public class Pengguna extends javax.swing.JFrame implements Observer {
                         .addContainerGap()
                         .addGroup(header2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(lb_date, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(lb_time, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(header2Layout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addGroup(header2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(header2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jButton12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(header2Layout.createSequentialGroup()
                                 .addGap(21, 21, 21)
-                                .addComponent(jLabel2)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jLabel2))
+                            .addGroup(header2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jButton12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         panel.setBackground(new java.awt.Color(255, 255, 255));
@@ -321,7 +337,7 @@ public class Pengguna extends javax.swing.JFrame implements Observer {
         );
 
         iconBeranda.setBackground(new java.awt.Color(0, 128, 128));
-        iconBeranda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-home-30.png"))); // NOI18N
+        iconBeranda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-home-30(1).png"))); // NOI18N
         iconBeranda.setContentAreaFilled(false);
         iconBeranda.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         iconBeranda.setOpaque(true);
@@ -395,13 +411,12 @@ public class Pengguna extends javax.swing.JFrame implements Observer {
         );
 
         iconSetor.setBackground(new java.awt.Color(255, 255, 255));
-        iconSetor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-home-30.png"))); // NOI18N
+        iconSetor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-waste-filled-30.png"))); // NOI18N
         iconSetor.setContentAreaFilled(false);
         iconSetor.setOpaque(true);
 
         btnSetor.setBackground(new java.awt.Color(255, 255, 255));
         btnSetor.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
-        btnSetor.setForeground(new java.awt.Color(114, 115, 118));
         btnSetor.setText("Setor Sampah");
         btnSetor.setContentAreaFilled(false);
         btnSetor.setFocusable(false);
@@ -457,13 +472,12 @@ public class Pengguna extends javax.swing.JFrame implements Observer {
         );
 
         iconBelanja.setBackground(new java.awt.Color(255, 255, 255));
-        iconBelanja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8_shopping_cart_30px_4.png"))); // NOI18N
+        iconBelanja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-shopping-mall-filled-30.png"))); // NOI18N
         iconBelanja.setContentAreaFilled(false);
         iconBelanja.setOpaque(true);
 
         btnBelanja.setBackground(new java.awt.Color(255, 255, 255));
         btnBelanja.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
-        btnBelanja.setForeground(new java.awt.Color(114, 115, 118));
         btnBelanja.setText("Belanja");
         btnBelanja.setContentAreaFilled(false);
         btnBelanja.setFocusable(false);
@@ -519,13 +533,12 @@ public class Pengguna extends javax.swing.JFrame implements Observer {
         );
 
         iconRekening.setBackground(new java.awt.Color(255, 255, 255));
-        iconRekening.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-home-30.png"))); // NOI18N
+        iconRekening.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-discover-filled-30.png"))); // NOI18N
         iconRekening.setContentAreaFilled(false);
         iconRekening.setOpaque(true);
 
         btnRekening.setBackground(new java.awt.Color(255, 255, 255));
         btnRekening.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
-        btnRekening.setForeground(new java.awt.Color(114, 115, 118));
         btnRekening.setText("Rekening");
         btnRekening.setContentAreaFilled(false);
         btnRekening.setFocusable(false);
@@ -576,13 +589,12 @@ public class Pengguna extends javax.swing.JFrame implements Observer {
         );
 
         iconRiwayat.setBackground(new java.awt.Color(255, 255, 255));
-        iconRiwayat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-home-30.png"))); // NOI18N
+        iconRiwayat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-time-machine-30.png"))); // NOI18N
         iconRiwayat.setContentAreaFilled(false);
         iconRiwayat.setOpaque(true);
 
         btnRiwayat.setBackground(new java.awt.Color(255, 255, 255));
         btnRiwayat.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
-        btnRiwayat.setForeground(new java.awt.Color(114, 115, 118));
         btnRiwayat.setText("Riwayat");
         btnRiwayat.setContentAreaFilled(false);
         btnRiwayat.setFocusable(false);
@@ -661,7 +673,7 @@ public class Pengguna extends javax.swing.JFrame implements Observer {
 
         menu.add(beranda1, "beranda");
 
-        setor.setBackground(new java.awt.Color(255, 255, 255));
+        setor.setBackground(new java.awt.Color(204, 204, 204));
         setor.setName(""); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
@@ -713,13 +725,6 @@ public class Pengguna extends javax.swing.JFrame implements Observer {
             }
         });
 
-        lb_genhargasampah1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        lb_genhargasampah1.setText("CLOCK");
-
-        lb_date.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-
-        lb_time.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-
         javax.swing.GroupLayout setorLayout = new javax.swing.GroupLayout(setor);
         setor.setLayout(setorLayout);
         setorLayout.setHorizontalGroup(
@@ -746,39 +751,23 @@ public class Pengguna extends javax.swing.JFrame implements Observer {
                             .addComponent(lb_gentotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(tf_jumlah))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, setorLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lb_date, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
-                .addComponent(lb_time, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43))
             .addGroup(setorLayout.createSequentialGroup()
                 .addGap(360, 360, 360)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 235, Short.MAX_VALUE)
-                .addComponent(lb_genhargasampah1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(134, 134, 134))
+                .addGap(134, 428, Short.MAX_VALUE))
         );
         setorLayout.setVerticalGroup(
             setorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(setorLayout.createSequentialGroup()
-                .addGroup(setorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(setorLayout.createSequentialGroup()
-                        .addGap(51, 51, 51)
-                        .addComponent(lb_genhargasampah1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(setorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lb_date, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lb_time, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(49, 49, 49)
                 .addGroup(setorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lb_ktgsampah, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cb_ktgsampah))
                 .addGap(22, 22, 22)
                 .addGroup(setorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lb_namasampah, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cb_namasampah, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE))
+                    .addComponent(cb_namasampah))
                 .addGap(32, 32, 32)
                 .addGroup(setorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lb_genhargasampah, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -791,7 +780,7 @@ public class Pengguna extends javax.swing.JFrame implements Observer {
                 .addGroup(setorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lb_total1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lb_gentotal, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addGroup(setorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bt_Setor, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bt_hitung, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -894,7 +883,7 @@ public class Pengguna extends javax.swing.JFrame implements Observer {
                 .addGap(22, 22, 22)
                 .addGroup(belanjaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lb_namasampah1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cb_namaproduk, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE))
+                    .addComponent(cb_namaproduk))
                 .addGap(32, 32, 32)
                 .addGroup(belanjaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lb_genhargaproduk, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1078,30 +1067,34 @@ public class Pengguna extends javax.swing.JFrame implements Observer {
         btnBeranda.setForeground(new Color(255, 255, 255));
         iconBeranda.setBackground(new Color(0, 128, 128));
         pnlBeranda.setBackground(new Color(255, 255, 255));
+        iconBeranda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-home-30(1).png")));
         title.setText("Beranda - Basara 1.0");
+        cardlayout.show(menu, "beranda");
+        
         
         btnSetor.setBackground(new Color(255, 255, 255));
-        btnSetor.setForeground(new Color(114, 115, 118));
+        btnSetor.setForeground(new Color(0, 0, 0));
         iconSetor.setBackground(new Color(255, 255, 255));
         pnlSetor.setBackground(new Color(0, 128, 128));
+        iconSetor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-waste-filled-30.png")));
         
         btnBelanja.setBackground(new Color(255, 255, 255));
-        btnBelanja.setForeground(new Color(114, 115, 118));
+        btnBelanja.setForeground(new Color(0, 0, 0));
         iconBelanja.setBackground(new Color(255, 255, 255));
         pnlBelanja.setBackground(new Color(0, 128, 128));
+        iconBelanja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-shopping-mall-filled-30.png")));
         
         btnRekening.setBackground(new Color(255, 255, 255));
-        btnRekening.setForeground(new Color(114, 115, 118));
+        btnRekening.setForeground(new Color(0, 0, 0));
         iconRekening.setBackground(new Color(255, 255, 255));
         pnlRekening.setBackground(new Color(0, 128, 128));
+        iconRekening.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-discover-filled-30.png")));
         
         btnRiwayat.setBackground(new Color(255, 255, 255));
-        btnRiwayat.setForeground(new Color(114, 115, 118));
+        btnRiwayat.setForeground(new Color(0, 0, 0));
         iconRiwayat.setBackground(new Color(255, 255, 255));
         pnlRiwayat.setBackground(new Color(0, 128, 128));
-        
-        cardlayout.show(menu, "beranda");
-
+        iconRiwayat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-time-machine-30.png")));
     }//GEN-LAST:event_btnBerandaMouseClicked
 
     private void iconBerandaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_iconBerandaMouseClicked
@@ -1121,126 +1114,141 @@ public class Pengguna extends javax.swing.JFrame implements Observer {
     }//GEN-LAST:event_btnBerandaActionPerformed
 
     private void btnSetorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSetorMouseClicked
-        cardlayout.show(menu,"setor");
         btnBeranda.setBackground(new Color(255, 255, 255));
-        btnBeranda.setForeground(new Color(114, 115, 118));
+        btnBeranda.setForeground(new Color(0, 0, 0));
         iconBeranda.setBackground(new Color(255, 255, 255));
         pnlBeranda.setBackground(new Color(0, 128, 128));
+        iconBeranda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-home-30.png")));
         
         btnSetor.setBackground(new Color(0, 128, 128));
         btnSetor.setForeground(new Color(255, 255, 255));
         iconSetor.setBackground(new Color(0, 128, 128));
         pnlSetor.setBackground(new Color(255, 255, 255));
-        title.setText("Setor - Basara 1.0");
+        iconSetor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-waste-filled-30 (1).png")));
+        cardlayout.show(menu, "setor");
+        title.setText("Setor Sampah - Basara 1.0");
         
         btnBelanja.setBackground(new Color(255, 255, 255));
-        btnBelanja.setForeground(new Color(114, 115, 118));
+        btnBelanja.setForeground(new Color(0, 0, 0));
         iconBelanja.setBackground(new Color(255, 255, 255));
         pnlBelanja.setBackground(new Color(0, 128, 128));
+        iconBelanja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-shopping-mall-filled-30.png")));
         
         btnRekening.setBackground(new Color(255, 255, 255));
-        btnRekening.setForeground(new Color(114, 115, 118));
+        btnRekening.setForeground(new Color(0, 0, 0));
         iconRekening.setBackground(new Color(255, 255, 255));
         pnlRekening.setBackground(new Color(0, 128, 128));
+        iconRekening.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-discover-filled-30.png")));
         
         btnRiwayat.setBackground(new Color(255, 255, 255));
-        btnRiwayat.setForeground(new Color(114, 115, 118));
+        btnRiwayat.setForeground(new Color(0, 0, 0));
         iconRiwayat.setBackground(new Color(255, 255, 255));
         pnlRiwayat.setBackground(new Color(0, 128, 128));
-        
-        cardlayout.show(menu, "setor");
+        iconRiwayat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-time-machine-30.png")));
         
     }//GEN-LAST:event_btnSetorMouseClicked
 
     private void btnBelanjaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBelanjaMouseClicked
         btnBeranda.setBackground(new Color(255, 255, 255));
-        btnBeranda.setForeground(new Color(114, 115, 118));
+        btnBeranda.setForeground(new Color(0, 0, 0));
         iconBeranda.setBackground(new Color(255, 255, 255));
         pnlBeranda.setBackground(new Color(0, 128, 128));
+        iconBeranda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-home-30.png")));
         
         btnSetor.setBackground(new Color(255, 255, 255));
-        btnSetor.setForeground(new Color(114, 115, 118));
+        btnSetor.setForeground(new Color(0, 0, 0));
         iconSetor.setBackground(new Color(255, 255, 255));
         pnlSetor.setBackground(new Color(0, 128, 128));
+        iconSetor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-waste-filled-30.png")));
         
         btnBelanja.setBackground(new Color(0, 128, 128));
         btnBelanja.setForeground(new Color(255, 255, 255));
         iconBelanja.setBackground(new Color(0, 128, 128));
         pnlBelanja.setBackground(new Color(255, 255, 255));
+        iconBelanja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-shopping-mall-filled-30 (1).png")));
+        cardlayout.show(menu, "belanja");
         title.setText("Belanja - Basara 1.0");
         
         btnRekening.setBackground(new Color(255, 255, 255));
-        btnRekening.setForeground(new Color(114, 115, 118));
+        btnRekening.setForeground(new Color(0, 0, 0));
         iconRekening.setBackground(new Color(255, 255, 255));
         pnlRekening.setBackground(new Color(0, 128, 128));
+        iconRekening.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-discover-filled-30.png")));
         
         btnRiwayat.setBackground(new Color(255, 255, 255));
-        btnRiwayat.setForeground(new Color(114, 115, 118));
+        btnRiwayat.setForeground(new Color(0, 0, 0));
         iconRiwayat.setBackground(new Color(255, 255, 255));
         pnlRiwayat.setBackground(new Color(0, 128, 128));
-        
-        iconBelanja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8_shopping_cart_30px_5.png")));
-        cardlayout.show(menu, "belanja");
+        iconRiwayat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-time-machine-30.png")));
         
     }//GEN-LAST:event_btnBelanjaMouseClicked
 
     private void btnRekeningMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRekeningMouseClicked
         btnBeranda.setBackground(new Color(255, 255, 255));
-        btnBeranda.setForeground(new Color(114, 115, 118));
+        btnBeranda.setForeground(new Color(0, 0, 0));
         iconBeranda.setBackground(new Color(255, 255, 255));
         pnlBeranda.setBackground(new Color(0, 128, 128));
+        iconBeranda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-home-30.png")));
         
         btnSetor.setBackground(new Color(255, 255, 255));
-        btnSetor.setForeground(new Color(114, 115, 118));
+        btnSetor.setForeground(new Color(0, 0, 0));
         iconSetor.setBackground(new Color(255, 255, 255));
         pnlSetor.setBackground(new Color(0, 128, 128));
+        iconSetor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-waste-filled-30.png")));
         
         btnBelanja.setBackground(new Color(255, 255, 255));
-        btnBelanja.setForeground(new Color(114, 115, 118));
+        btnBelanja.setForeground(new Color(0, 0, 0));
         iconBelanja.setBackground(new Color(255, 255, 255));
         pnlBelanja.setBackground(new Color(0, 128, 128));
+        iconBelanja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-shopping-mall-filled-30.png")));
         
         btnRekening.setBackground(new Color(0, 128, 128));
         btnRekening.setForeground(new Color(255, 255, 255));
         iconRekening.setBackground(new Color(0, 128, 128));
         pnlRekening.setBackground(new Color(255, 255, 255));
+        iconRekening.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-discover-filled-30 (1).png")));
+        cardlayout.show(menu, "rekening");
         title.setText("Rekening - Basara 1.0");
         
         btnRiwayat.setBackground(new Color(255, 255, 255));
-        btnRiwayat.setForeground(new Color(114, 115, 118));
+        btnRiwayat.setForeground(new Color(0, 0, 0));
         iconRiwayat.setBackground(new Color(255, 255, 255));
         pnlRiwayat.setBackground(new Color(0, 128, 128));
-        
-        cardlayout.show(menu, "rekening");
+        iconRiwayat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-time-machine-30.png")));
     }//GEN-LAST:event_btnRekeningMouseClicked
 
     private void btnRiwayatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRiwayatMouseClicked
         btnBeranda.setBackground(new Color(255, 255, 255));
-        btnBeranda.setForeground(new Color(114, 115, 118));
+        btnBeranda.setForeground(new Color(0, 0, 0));
         iconBeranda.setBackground(new Color(255, 255, 255));
         pnlBeranda.setBackground(new Color(0, 128, 128));
+        iconBeranda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-home-30.png")));
         
         btnSetor.setBackground(new Color(255, 255, 255));
-        btnSetor.setForeground(new Color(114, 115, 118));
+        btnSetor.setForeground(new Color(0, 0, 0));
         iconSetor.setBackground(new Color(255, 255, 255));
         pnlSetor.setBackground(new Color(0, 128, 128));
+        iconSetor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-waste-filled-30.png")));
         
         btnBelanja.setBackground(new Color(255, 255, 255));
-        btnBelanja.setForeground(new Color(114, 115, 118));
+        btnBelanja.setForeground(new Color(0, 0, 0));
         iconBelanja.setBackground(new Color(255, 255, 255));
         pnlBelanja.setBackground(new Color(0, 128, 128));
+        iconBelanja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-shopping-mall-filled-30.png")));
         
         btnRekening.setBackground(new Color(255, 255, 255));
-        btnRekening.setForeground(new Color(114, 115, 118));
+        btnRekening.setForeground(new Color(0, 0, 0));
         iconRekening.setBackground(new Color(255, 255, 255));
         pnlRekening.setBackground(new Color(0, 128, 128));
+        iconRekening.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-discover-filled-30.png")));
         
         btnRiwayat.setBackground(new Color(0, 128, 128));
         btnRiwayat.setForeground(new Color(255, 255, 255));
         iconRiwayat.setBackground(new Color (0, 128, 128));
         pnlRiwayat.setBackground(new Color(255, 255, 255));
-        title.setText("Riwayat - Basara 1.0");
+        iconRiwayat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-time-machine-30 (1).png")));
         cardlayout.show(menu, "riwayat");
+        title.setText("Riwayat - Basara 1.0");
     }//GEN-LAST:event_btnRiwayatMouseClicked
 
     private void btnBelanjaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBelanjaActionPerformed
@@ -1405,7 +1413,6 @@ public class Pengguna extends javax.swing.JFrame implements Observer {
     private javax.swing.JLabel lb_date;
     private javax.swing.JLabel lb_genhargaproduk;
     private javax.swing.JLabel lb_genhargasampah;
-    private javax.swing.JLabel lb_genhargasampah1;
     private javax.swing.JLabel lb_gentotal;
     private javax.swing.JLabel lb_gentotalproduk;
     private javax.swing.JLabel lb_hargaproduk;

@@ -20,7 +20,7 @@ public interface TransaksiDAO {
     
     public boolean delete(Transaksi p, String Table);
     
-    public List<Transaksi> getAllTransaksi();
+    public List<Transaksi> getAllTransaksi(String Column, String Table, String Condition);
     
     public Transaksi getByKode(String kode);
     

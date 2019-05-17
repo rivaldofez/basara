@@ -19,8 +19,9 @@ public class Transaksi {
     private String no_pegawai;
     private String kode_branch;
     private int jumlah;
+    private double total;
 
-    public Transaksi(String id, String tgl, String waktu, int jumlah, String status, String kode_items, String no_pengguna, String no_pegawai, String kode_branch) {
+    public Transaksi(String id, String tgl, String waktu, int jumlah, String status, String kode_items, String no_pengguna, String no_pegawai, String kode_branch, double total) {
         this.id = id;
         this.tgl = tgl;
         this.waktu = waktu;
@@ -30,8 +31,18 @@ public class Transaksi {
         this.no_pegawai = no_pegawai;
         this.kode_branch = kode_branch;
         this.jumlah = jumlah;
+        this.total=total;
     }
 
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
+    }
+
+    
     public String getId() {
         return id;
     }

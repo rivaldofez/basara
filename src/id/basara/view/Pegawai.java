@@ -5,18 +5,32 @@
  */
 package id.basara.view;
 
+import id.basara.controller.AtributController;
+import id.basara.controller.ClockController;
+import id.basara.controller.TransaksiController;
+import id.basara.database.DatabaseMySQL;
+import id.basara.model.Atribut;
+import id.basara.model.CrudState;
+import id.basara.model.Transaksi;
 import java.awt.*;
 import javax.swing.*;
 import java.sql.*;
+import java.util.Observable;
+import java.util.Observer;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author HEWLETT-PACKARD
  */
-public class Pegawai extends javax.swing.JFrame {
+public class Pegawai extends javax.swing.JFrame implements Observer {
 
     /**
      * Creates new form Pengguna
      */
+    String Username;
+    private TransaksiController transaksiController = new TransaksiController();
+    private AtributController atributController = new AtributController();
+    private ClockController jam = new ClockController();
     static boolean Maximize = true;
     int x, y;
     CardLayout cardlayout;
@@ -24,6 +38,30 @@ public class Pegawai extends javax.swing.JFrame {
     public Pegawai() {
         initComponents();
         cardlayout = (CardLayout) menu.getLayout();
+        
+        transaksiController.addObserver(this);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        transaksiController.addObserver(this);
+
+        
+        if (!DatabaseMySQL.isConnect()){
+            System.exit(0);
+        }
+        
+    }
+    
+    public Pegawai(String Username) {
+        initComponents();
+        cardlayout = (CardLayout) menu.getLayout();
+        
+        transaksiController.addObserver(this);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        transaksiController.addObserver(this);
+        this.Username=Username;
+        
+        if (!DatabaseMySQL.isConnect()){
+            System.exit(0);
+        }
         
     }
     
@@ -55,28 +93,44 @@ public class Pegawai extends javax.swing.JFrame {
         pnlBeranda = new javax.swing.JPanel();
         iconBeranda = new javax.swing.JButton();
         btnBeranda = new javax.swing.JButton();
-        BeliSampah = new javax.swing.JPanel();
+        mn_verifikasisetoran = new javax.swing.JPanel();
         pnlVerSetoran = new javax.swing.JPanel();
         iconVerSetoran = new javax.swing.JButton();
         btnVerSetoran = new javax.swing.JButton();
-        JualProduk = new javax.swing.JPanel();
+        mn_verifikasipengrajin = new javax.swing.JPanel();
         pnlVerPengrajin = new javax.swing.JPanel();
         iconVerPengrajin = new javax.swing.JButton();
         btnVerPengrajin = new javax.swing.JButton();
-        InformasiAkun = new javax.swing.JPanel();
+        mn_vsampah = new javax.swing.JPanel();
         pnlSampah = new javax.swing.JPanel();
         iconSampah = new javax.swing.JButton();
         btnSampah = new javax.swing.JButton();
-        Deposit = new javax.swing.JPanel();
+        mn_dsampah = new javax.swing.JPanel();
         pnlProduk = new javax.swing.JPanel();
         iconProduk = new javax.swing.JButton();
         btnProduk = new javax.swing.JButton();
         menu = new javax.swing.JPanel();
         beranda = new javax.swing.JPanel();
-        verifikasi_setoran = new javax.swing.JPanel();
-        jualproduk = new javax.swing.JPanel();
-        informasiakun = new javax.swing.JPanel();
-        deposit = new javax.swing.JPanel();
+        verif_setoran = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        tf_vidpengguna = new javax.swing.JTextField();
+        lb_ktgsampah = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tb_verifsetoran = new javax.swing.JTable();
+        jButton3 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        verif_pengrajin = new javax.swing.JPanel();
+        lb_ktgsampah1 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        tf_vidpengrajin = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tb_verifpengrajin = new javax.swing.JTable();
+        jButton4 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        verif_sampah = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        lb_ktgsampah2 = new javax.swing.JLabel();
+        verif_produk = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -173,6 +227,7 @@ public class Pegawai extends javax.swing.JFrame {
         );
 
         header2.setBackground(new java.awt.Color(255, 255, 255));
+        header2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 1, 0, 1, new java.awt.Color(0, 128, 128)));
         header2.setForeground(new java.awt.Color(0, 128, 128));
 
         jButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-user-40.png"))); // NOI18N
@@ -195,9 +250,9 @@ public class Pegawai extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         jLabel2.setText("Helo,");
 
-        lb_date.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        lb_date.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
 
-        lb_time.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        lb_time.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
 
         javax.swing.GroupLayout header2Layout = new javax.swing.GroupLayout(header2);
         header2.setLayout(header2Layout);
@@ -221,10 +276,8 @@ public class Pegawai extends javax.swing.JFrame {
                         .addGap(11, 11, 11))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, header2Layout.createSequentialGroup()
                         .addGroup(header2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, header2Layout.createSequentialGroup()
-                                .addComponent(lb_time, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(lb_date, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lb_time, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lb_date, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap())))
         );
         header2Layout.setVerticalGroup(
@@ -255,6 +308,7 @@ public class Pegawai extends javax.swing.JFrame {
         );
 
         panel.setBackground(new java.awt.Color(255, 255, 255));
+        panel.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 1, 1, 0, new java.awt.Color(0, 128, 128)));
 
         Beranda.setBackground(new java.awt.Color(0, 128, 128));
 
@@ -329,7 +383,7 @@ public class Pegawai extends javax.swing.JFrame {
                 .addGap(0, 0, 0))
         );
 
-        BeliSampah.setBackground(new java.awt.Color(0, 128, 128));
+        mn_verifikasisetoran.setBackground(new java.awt.Color(0, 128, 128));
 
         pnlVerSetoran.setBackground(new java.awt.Color(0, 128, 128));
 
@@ -360,12 +414,17 @@ public class Pegawai extends javax.swing.JFrame {
                 btnVerSetoranMouseClicked(evt);
             }
         });
+        btnVerSetoran.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerSetoranActionPerformed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout BeliSampahLayout = new javax.swing.GroupLayout(BeliSampah);
-        BeliSampah.setLayout(BeliSampahLayout);
-        BeliSampahLayout.setHorizontalGroup(
-            BeliSampahLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(BeliSampahLayout.createSequentialGroup()
+        javax.swing.GroupLayout mn_verifikasisetoranLayout = new javax.swing.GroupLayout(mn_verifikasisetoran);
+        mn_verifikasisetoran.setLayout(mn_verifikasisetoranLayout);
+        mn_verifikasisetoranLayout.setHorizontalGroup(
+            mn_verifikasisetoranLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mn_verifikasisetoranLayout.createSequentialGroup()
                 .addGap(0, 0, 0)
                 .addComponent(pnlVerSetoran, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
@@ -374,17 +433,17 @@ public class Pegawai extends javax.swing.JFrame {
                 .addComponent(btnVerSetoran, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
-        BeliSampahLayout.setVerticalGroup(
-            BeliSampahLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(BeliSampahLayout.createSequentialGroup()
-                .addGroup(BeliSampahLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        mn_verifikasisetoranLayout.setVerticalGroup(
+            mn_verifikasisetoranLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mn_verifikasisetoranLayout.createSequentialGroup()
+                .addGroup(mn_verifikasisetoranLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pnlVerSetoran, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(iconVerSetoran, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE)
                     .addComponent(btnVerSetoran, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, 0))
         );
 
-        JualProduk.setBackground(new java.awt.Color(0, 128, 128));
+        mn_verifikasipengrajin.setBackground(new java.awt.Color(0, 128, 128));
 
         pnlVerPengrajin.setBackground(new java.awt.Color(0, 128, 128));
 
@@ -415,12 +474,17 @@ public class Pegawai extends javax.swing.JFrame {
                 btnVerPengrajinMouseClicked(evt);
             }
         });
+        btnVerPengrajin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerPengrajinActionPerformed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout JualProdukLayout = new javax.swing.GroupLayout(JualProduk);
-        JualProduk.setLayout(JualProdukLayout);
-        JualProdukLayout.setHorizontalGroup(
-            JualProdukLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(JualProdukLayout.createSequentialGroup()
+        javax.swing.GroupLayout mn_verifikasipengrajinLayout = new javax.swing.GroupLayout(mn_verifikasipengrajin);
+        mn_verifikasipengrajin.setLayout(mn_verifikasipengrajinLayout);
+        mn_verifikasipengrajinLayout.setHorizontalGroup(
+            mn_verifikasipengrajinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mn_verifikasipengrajinLayout.createSequentialGroup()
                 .addGap(0, 0, 0)
                 .addComponent(pnlVerPengrajin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
@@ -429,17 +493,17 @@ public class Pegawai extends javax.swing.JFrame {
                 .addComponent(btnVerPengrajin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
-        JualProdukLayout.setVerticalGroup(
-            JualProdukLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(JualProdukLayout.createSequentialGroup()
-                .addGroup(JualProdukLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        mn_verifikasipengrajinLayout.setVerticalGroup(
+            mn_verifikasipengrajinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mn_verifikasipengrajinLayout.createSequentialGroup()
+                .addGroup(mn_verifikasipengrajinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pnlVerPengrajin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(iconVerPengrajin, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE)
                     .addComponent(btnVerPengrajin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, 0))
         );
 
-        InformasiAkun.setBackground(new java.awt.Color(0, 128, 128));
+        mn_vsampah.setBackground(new java.awt.Color(0, 128, 128));
 
         pnlSampah.setBackground(new java.awt.Color(0, 128, 128));
 
@@ -471,11 +535,11 @@ public class Pegawai extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout InformasiAkunLayout = new javax.swing.GroupLayout(InformasiAkun);
-        InformasiAkun.setLayout(InformasiAkunLayout);
-        InformasiAkunLayout.setHorizontalGroup(
-            InformasiAkunLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(InformasiAkunLayout.createSequentialGroup()
+        javax.swing.GroupLayout mn_vsampahLayout = new javax.swing.GroupLayout(mn_vsampah);
+        mn_vsampah.setLayout(mn_vsampahLayout);
+        mn_vsampahLayout.setHorizontalGroup(
+            mn_vsampahLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mn_vsampahLayout.createSequentialGroup()
                 .addGap(0, 0, 0)
                 .addComponent(pnlSampah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
@@ -484,17 +548,17 @@ public class Pegawai extends javax.swing.JFrame {
                 .addComponent(btnSampah, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
-        InformasiAkunLayout.setVerticalGroup(
-            InformasiAkunLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(InformasiAkunLayout.createSequentialGroup()
-                .addGroup(InformasiAkunLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        mn_vsampahLayout.setVerticalGroup(
+            mn_vsampahLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mn_vsampahLayout.createSequentialGroup()
+                .addGroup(mn_vsampahLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pnlSampah, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(iconSampah, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE)
                     .addComponent(btnSampah, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, 0))
         );
 
-        Deposit.setBackground(new java.awt.Color(0, 128, 128));
+        mn_dsampah.setBackground(new java.awt.Color(0, 128, 128));
 
         pnlProduk.setBackground(new java.awt.Color(0, 128, 128));
 
@@ -526,11 +590,11 @@ public class Pegawai extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout DepositLayout = new javax.swing.GroupLayout(Deposit);
-        Deposit.setLayout(DepositLayout);
-        DepositLayout.setHorizontalGroup(
-            DepositLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(DepositLayout.createSequentialGroup()
+        javax.swing.GroupLayout mn_dsampahLayout = new javax.swing.GroupLayout(mn_dsampah);
+        mn_dsampah.setLayout(mn_dsampahLayout);
+        mn_dsampahLayout.setHorizontalGroup(
+            mn_dsampahLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mn_dsampahLayout.createSequentialGroup()
                 .addGap(0, 0, 0)
                 .addComponent(pnlProduk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
@@ -539,10 +603,10 @@ public class Pegawai extends javax.swing.JFrame {
                 .addComponent(btnProduk, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
-        DepositLayout.setVerticalGroup(
-            DepositLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(DepositLayout.createSequentialGroup()
-                .addGroup(DepositLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        mn_dsampahLayout.setVerticalGroup(
+            mn_dsampahLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mn_dsampahLayout.createSequentialGroup()
+                .addGroup(mn_dsampahLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(pnlProduk, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(iconProduk, javax.swing.GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE)
                     .addComponent(btnProduk, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -554,10 +618,10 @@ public class Pegawai extends javax.swing.JFrame {
         panelLayout.setHorizontalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(Beranda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(BeliSampah, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(JualProduk, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(InformasiAkun, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(Deposit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(mn_verifikasisetoran, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(mn_verifikasipengrajin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(mn_vsampah, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(mn_dsampah, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         panelLayout.setVerticalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -565,13 +629,13 @@ public class Pegawai extends javax.swing.JFrame {
                 .addGap(0, 0, 0)
                 .addComponent(Beranda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(BeliSampah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(mn_verifikasisetoran, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(JualProduk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(mn_verifikasipengrajin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(InformasiAkun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(mn_vsampah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(Deposit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(mn_dsampah, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -593,65 +657,205 @@ public class Pegawai extends javax.swing.JFrame {
 
         menu.add(beranda, "beranda");
 
-        verifikasi_setoran.setBackground(new java.awt.Color(255, 255, 255));
+        verif_setoran.setBackground(new java.awt.Color(255, 255, 255));
+        verif_setoran.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 128, 128)));
+        verif_setoran.setForeground(new java.awt.Color(0, 128, 128));
 
-        javax.swing.GroupLayout verifikasi_setoranLayout = new javax.swing.GroupLayout(verifikasi_setoran);
-        verifikasi_setoran.setLayout(verifikasi_setoranLayout);
-        verifikasi_setoranLayout.setHorizontalGroup(
-            verifikasi_setoranLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jLabel3.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jLabel3.setText("VERIFIKASI SETORAN");
+
+        lb_ktgsampah.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lb_ktgsampah.setText("Masukkan ID Pengguna");
+
+        tb_verifsetoran.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tb_verifsetoran);
+
+        jButton3.setText("Verifikasi");
+
+        jButton5.setText("Show");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout verif_setoranLayout = new javax.swing.GroupLayout(verif_setoran);
+        verif_setoran.setLayout(verif_setoranLayout);
+        verif_setoranLayout.setHorizontalGroup(
+            verif_setoranLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(verif_setoranLayout.createSequentialGroup()
+                .addGroup(verif_setoranLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(verif_setoranLayout.createSequentialGroup()
+                        .addGap(360, 360, 360)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(verif_setoranLayout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addComponent(lb_ktgsampah, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(78, 78, 78)
+                        .addComponent(tf_vidpengguna, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(69, 69, 69)
+                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(verif_setoranLayout.createSequentialGroup()
+                        .addGap(123, 123, 123)
+                        .addComponent(jButton3))
+                    .addGroup(verif_setoranLayout.createSequentialGroup()
+                        .addGap(101, 101, 101)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 729, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(184, Short.MAX_VALUE))
+        );
+        verif_setoranLayout.setVerticalGroup(
+            verif_setoranLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(verif_setoranLayout.createSequentialGroup()
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addGroup(verif_setoranLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(verif_setoranLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lb_ktgsampah, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tf_vidpengguna, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(37, 37, 37)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
+                .addComponent(jButton3)
+                .addContainerGap(29, Short.MAX_VALUE))
+        );
+
+        menu.add(verif_setoran, "verif_setoran");
+
+        verif_pengrajin.setBackground(new java.awt.Color(255, 255, 255));
+        verif_pengrajin.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 128, 128)));
+
+        lb_ktgsampah1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lb_ktgsampah1.setText("Masukkan ID Pengrajin");
+
+        jLabel4.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jLabel4.setText("VERIFIKASI PENGRAJIN");
+
+        tb_verifpengrajin.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(tb_verifpengrajin);
+
+        jButton4.setText("Verifikasi");
+
+        jButton6.setText("Show");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout verif_pengrajinLayout = new javax.swing.GroupLayout(verif_pengrajin);
+        verif_pengrajin.setLayout(verif_pengrajinLayout);
+        verif_pengrajinLayout.setHorizontalGroup(
+            verif_pengrajinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(verif_pengrajinLayout.createSequentialGroup()
+                .addGap(120, 120, 120)
+                .addComponent(lb_ktgsampah1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(verif_pengrajinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, verif_pengrajinLayout.createSequentialGroup()
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(175, 433, Short.MAX_VALUE))
+                    .addGroup(verif_pengrajinLayout.createSequentialGroup()
+                        .addGap(95, 95, 95)
+                        .addComponent(tf_vidpengrajin, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(72, 72, 72)
+                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(verif_pengrajinLayout.createSequentialGroup()
+                .addGap(89, 89, 89)
+                .addGroup(verif_pengrajinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton4)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 802, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 123, Short.MAX_VALUE))
+        );
+        verif_pengrajinLayout.setVerticalGroup(
+            verif_pengrajinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(verif_pengrajinLayout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(54, 54, 54)
+                .addGroup(verif_pengrajinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lb_ktgsampah1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tf_vidpengrajin, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addComponent(jButton4)
+                .addContainerGap(25, Short.MAX_VALUE))
+        );
+
+        menu.add(verif_pengrajin, "verif_pengrajin");
+
+        verif_sampah.setBackground(new java.awt.Color(255, 255, 255));
+        verif_sampah.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(0, 128, 128)));
+
+        jLabel5.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jLabel5.setText("SAMPAH");
+
+        lb_ktgsampah2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        lb_ktgsampah2.setText("Masukkan ID Pengrajin");
+
+        javax.swing.GroupLayout verif_sampahLayout = new javax.swing.GroupLayout(verif_sampah);
+        verif_sampah.setLayout(verif_sampahLayout);
+        verif_sampahLayout.setHorizontalGroup(
+            verif_sampahLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(verif_sampahLayout.createSequentialGroup()
+                .addGroup(verif_sampahLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(verif_sampahLayout.createSequentialGroup()
+                        .addGap(434, 434, 434)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(verif_sampahLayout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addComponent(lb_ktgsampah2, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(467, Short.MAX_VALUE))
+        );
+        verif_sampahLayout.setVerticalGroup(
+            verif_sampahLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(verif_sampahLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
+                .addComponent(lb_ktgsampah2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(427, Short.MAX_VALUE))
+        );
+
+        menu.add(verif_sampah, "verif_sampah");
+
+        verif_produk.setBackground(new java.awt.Color(0, 255, 51));
+
+        javax.swing.GroupLayout verif_produkLayout = new javax.swing.GroupLayout(verif_produk);
+        verif_produk.setLayout(verif_produkLayout);
+        verif_produkLayout.setHorizontalGroup(
+            verif_produkLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 1016, Short.MAX_VALUE)
         );
-        verifikasi_setoranLayout.setVerticalGroup(
-            verifikasi_setoranLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        verif_produkLayout.setVerticalGroup(
+            verif_produkLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 583, Short.MAX_VALUE)
         );
 
-        menu.add(verifikasi_setoran, "belisampah");
-
-        jualproduk.setBackground(new java.awt.Color(255, 102, 204));
-
-        javax.swing.GroupLayout jualprodukLayout = new javax.swing.GroupLayout(jualproduk);
-        jualproduk.setLayout(jualprodukLayout);
-        jualprodukLayout.setHorizontalGroup(
-            jualprodukLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1016, Short.MAX_VALUE)
-        );
-        jualprodukLayout.setVerticalGroup(
-            jualprodukLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 583, Short.MAX_VALUE)
-        );
-
-        menu.add(jualproduk, "jualproduk");
-
-        informasiakun.setBackground(new java.awt.Color(255, 255, 51));
-
-        javax.swing.GroupLayout informasiakunLayout = new javax.swing.GroupLayout(informasiakun);
-        informasiakun.setLayout(informasiakunLayout);
-        informasiakunLayout.setHorizontalGroup(
-            informasiakunLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1016, Short.MAX_VALUE)
-        );
-        informasiakunLayout.setVerticalGroup(
-            informasiakunLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 583, Short.MAX_VALUE)
-        );
-
-        menu.add(informasiakun, "informasiakun");
-
-        deposit.setBackground(new java.awt.Color(0, 255, 51));
-
-        javax.swing.GroupLayout depositLayout = new javax.swing.GroupLayout(deposit);
-        deposit.setLayout(depositLayout);
-        depositLayout.setHorizontalGroup(
-            depositLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1016, Short.MAX_VALUE)
-        );
-        depositLayout.setVerticalGroup(
-            depositLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 583, Short.MAX_VALUE)
-        );
-
-        menu.add(deposit, "deposit");
+        menu.add(verif_produk, "verif_produk");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -801,7 +1005,7 @@ public class Pegawai extends javax.swing.JFrame {
         iconVerSetoran.setBackground(new Color(0, 128, 128));
         pnlVerSetoran.setBackground(new Color(255, 255, 255));
         iconVerSetoran.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-checklist-filled-30 (1).png")));
-        cardlayout.show(menu, "belisampah");
+        cardlayout.show(menu, "verif_setoran");
         title.setText("Verifikasi Setoran - Basara 1.0");
         
         btnVerPengrajin.setBackground(new Color(255, 255, 255));
@@ -841,7 +1045,7 @@ public class Pegawai extends javax.swing.JFrame {
         iconVerPengrajin.setBackground(new Color(0, 128, 128));
         pnlVerPengrajin.setBackground(new Color(255, 255, 255));
         iconVerPengrajin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-todo-list-filled-30 (1).png")));
-        cardlayout.show(menu, "jualproduk");
+        cardlayout.show(menu, "verif_pengrajin");
         title.setText("Verifikasi Pengrajin - Basara 1.0");
         
         btnSampah.setBackground(new Color(255, 255, 255));
@@ -881,7 +1085,7 @@ public class Pegawai extends javax.swing.JFrame {
         iconSampah.setBackground(new Color(0, 128, 128));
         pnlSampah.setBackground(new Color(255, 255, 255));
         iconSampah.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-trash-filled-30 (1).png")));
-        cardlayout.show(menu, "informasiakun");
+        cardlayout.show(menu, "verif_sampah");
         title.setText("Sampah - Basara 1.0");
         
         btnProduk.setBackground(new Color(255, 255, 255));
@@ -921,9 +1125,25 @@ public class Pegawai extends javax.swing.JFrame {
         iconProduk.setBackground(new Color (0, 128, 128));
         pnlProduk.setBackground(new Color(255, 255, 255));
         iconProduk.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icons8-product-filled-30 (1).png")));
-        cardlayout.show(menu, "deposit");
+        cardlayout.show(menu, "verif_produk");
         title.setText("Produk - Basara 1.0");
     }//GEN-LAST:event_btnProdukMouseClicked
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+       setTransaksiTable(transaksiController.getAllTransaksi("*","setor_sampah","no_pengguna='"+tf_vidpengguna.getText()+"'"), tb_verifsetoran);
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void btnVerSetoranActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerSetoranActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnVerSetoranActionPerformed
+
+    private void btnVerPengrajinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerPengrajinActionPerformed
+       
+    }//GEN-LAST:event_btnVerPengrajinActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+       setTransaksiTable(transaksiController.getAllTransaksi("*","beli_sampah","no_pengrajin='"+tf_vidpengrajin.getText()+"'"), tb_verifpengrajin);
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -962,13 +1182,61 @@ public class Pegawai extends javax.swing.JFrame {
             }
         });
     }
+    
+    private void setAtribut(java.util.List<Atribut> atribut, javax.swing.JComboBox cb){    
+        if (atribut==null){
+            JOptionPane.showMessageDialog(this, "Data kategori gagal diambil dari database","DATABASE FAILED",JOptionPane.ERROR_MESSAGE);
+        }else{
+            cb.setModel(new DefaultComboBoxModel(atribut.toArray()));
+        }
+    }
+    
+    private void setTransaksiTable(java.util.List<Transaksi> listTransaksi, javax.swing.JTable tabel) {
+        if (listTransaksi==null){
+            JOptionPane.showMessageDialog(this, "Data gagal diambil dari database","DATABASE FAILED",JOptionPane.ERROR_MESSAGE);
+        }else{
+            DefaultTableModel tableModel = new DefaultTableModel(){
+                @Override
+                public boolean isCellEditable(int row, int column) {
+                    return false;
+                }
+            };
+            tableModel.setColumnIdentifiers(
+                new String[] {
+                    "ID Setor",
+                    "Tanggal",
+                    "Waktu",
+                    "Jumlah",
+                    "Status",
+                    "Kode Samoah",
+                    "No_Pengguna",
+                    "No_Pegawai",
+                    "Kode Branch"
+                }
+            );
+
+            for (Transaksi p : listTransaksi) {
+                Object[] o = new Object[9];
+                o[0] = p.getId();
+                o[1] = p.getTgl();
+                o[2] = p.getWaktu();
+                o[3] = p.getJumlah();
+                o[4] = p.getStatus();
+                o[5] = p.getKode_items();
+                o[6] = p.getNo_pengguna();
+                o[7] = p.getNo_pegawai();
+                o[8] = p.getKode_branch();
+                tableModel.addRow(o);
+            }
+            tabel.setAutoResizeMode( javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS );
+            tabel.setModel(tableModel);
+
+        }
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel BeliSampah;
     private javax.swing.JPanel Beranda;
-    private javax.swing.JPanel Deposit;
-    private javax.swing.JPanel InformasiAkun;
-    private javax.swing.JPanel JualProduk;
     private javax.swing.JPanel beranda;
     private javax.swing.JButton btnBeranda;
     private javax.swing.JButton btnExit;
@@ -978,7 +1246,6 @@ public class Pegawai extends javax.swing.JFrame {
     private javax.swing.JButton btnSampah;
     private javax.swing.JButton btnVerPengrajin;
     private javax.swing.JButton btnVerSetoran;
-    private javax.swing.JPanel deposit;
     private javax.swing.JPanel header;
     private javax.swing.JPanel header2;
     private javax.swing.JButton iconBeranda;
@@ -986,24 +1253,62 @@ public class Pegawai extends javax.swing.JFrame {
     private javax.swing.JButton iconSampah;
     private javax.swing.JButton iconVerPengrajin;
     private javax.swing.JButton iconVerSetoran;
-    private javax.swing.JPanel informasiakun;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jualproduk;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lb_date;
+    private javax.swing.JLabel lb_ktgsampah;
+    private javax.swing.JLabel lb_ktgsampah1;
+    private javax.swing.JLabel lb_ktgsampah2;
     private javax.swing.JLabel lb_time;
     private javax.swing.JPanel menu;
+    private javax.swing.JPanel mn_dsampah;
+    private javax.swing.JPanel mn_verifikasipengrajin;
+    private javax.swing.JPanel mn_verifikasisetoran;
+    private javax.swing.JPanel mn_vsampah;
     private javax.swing.JPanel panel;
     private javax.swing.JPanel pnlBeranda;
     private javax.swing.JPanel pnlProduk;
     private javax.swing.JPanel pnlSampah;
     private javax.swing.JPanel pnlVerPengrajin;
     private javax.swing.JPanel pnlVerSetoran;
+    private javax.swing.JTable tb_verifpengrajin;
+    private javax.swing.JTable tb_verifsetoran;
+    private javax.swing.JTextField tf_vidpengguna;
+    private javax.swing.JTextField tf_vidpengrajin;
     private javax.swing.JLabel title;
-    private javax.swing.JPanel verifikasi_setoran;
+    private javax.swing.JPanel verif_pengrajin;
+    private javax.swing.JPanel verif_produk;
+    private javax.swing.JPanel verif_sampah;
+    private javax.swing.JPanel verif_setoran;
     // End of variables declaration//GEN-END:variables
+
+@Override
+    public void update(Observable o, Object arg) {
+        if (o==transaksiController){
+            if (arg==null){
+                JOptionPane.showMessageDialog(this, "Produk gagal ditambah ke database");
+            }else{            
+                Transaksi p = (Transaksi) arg;
+                if (transaksiController.getCrudState() == CrudState.INSERT){
+                    JOptionPane.showMessageDialog(this, " berhasil ditambahkan");
+                }
+             
+            }            
+        }
+    }
+
+
 }

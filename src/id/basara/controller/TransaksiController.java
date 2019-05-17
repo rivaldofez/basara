@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Observable;
 import id.basara.model.Transaksi;
 import id.basara.dao.TransaksiDAO;
-import id.basara.dao.TransaksiDAOMySql;
+import id.basara.dao.TransaksiDAOMySQL;
 import id.basara.model.CrudState;
 
 /**
@@ -17,7 +17,7 @@ import id.basara.model.CrudState;
  * @author Rivaldo
  */
 public class TransaksiController extends Observable{
-    private TransaksiDAO dao = new TransaksiDAOMySql();
+    private TransaksiDAO dao = new TransaksiDAOMySQL();
     private CrudState crudState;
     
     public void setDAO(TransaksiDAO d){
@@ -52,7 +52,7 @@ public class TransaksiController extends Observable{
         return crudState;
     }
     
-    public List<Transaksi> getAllProduct() {
-        return dao.getAllTransaksi();
+    public List<Transaksi> getAllTransaksi(String Column, String Tabel, String Condition) {
+        return dao.getAllTransaksi(Column, Tabel, Condition);
     }
 }

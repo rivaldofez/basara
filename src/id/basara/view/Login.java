@@ -5,17 +5,28 @@
  */
 package id.basara.view;
 
+import id.basara.controller.PegawaiController;
+import id.basara.controller.UserController;
+import id.basara.controller.TransaksiController;
+import id.basara.model.MPegawai;
+import id.basara.model.User;
 import java.awt.*;
 import javax.swing.*;
 import java.sql.*;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author HEWLETT-PACKARD
  */
-public class Login extends javax.swing.JFrame {
 
+public class Login extends javax.swing.JFrame {
+    private UserController usercontroller = new UserController();
+    private PegawaiController pegawaicontroller = new PegawaiController();
+    
+    
     static boolean Maximize = true;
     int x, y;
     Connection con;
@@ -26,14 +37,11 @@ public class Login extends javax.swing.JFrame {
     
     public Login() {
         initComponents();
-
+            
         cardLayout = (CardLayout) menu.getLayout();
         
-        Connect DB = new Connect();
-        DB.config();
-        con = DB.con;
-        stat = DB.stm;
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -64,7 +72,6 @@ public class Login extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         password = new javax.swing.JPasswordField();
         btnLogin = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
         register = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         tfNamaLengkap = new javax.swing.JTextField();
@@ -81,8 +88,8 @@ public class Login extends javax.swing.JFrame {
         tfRePassword = new javax.swing.JPasswordField();
         btnRegister = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
-        cbjenisKelamin = new javax.swing.JComboBox<>();
         cbjenisUser = new javax.swing.JComboBox<>();
+        cbjenisKelamin = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("login");
@@ -164,7 +171,7 @@ public class Login extends javax.swing.JFrame {
             .addGroup(headerLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 742, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 740, Short.MAX_VALUE)
                 .addComponent(btnMinimize, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(btnMaximize, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -327,17 +334,6 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-
         javax.swing.GroupLayout loginLayout = new javax.swing.GroupLayout(login);
         login.setLayout(loginLayout);
         loginLayout.setHorizontalGroup(
@@ -347,21 +343,17 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(78, 78, 78))
             .addGroup(loginLayout.createSequentialGroup()
-                .addGroup(loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(loginLayout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, loginLayout.createSequentialGroup()
-                            .addGap(153, 153, 153)
-                            .addGroup(loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(username)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGroup(loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(loginLayout.createSequentialGroup()
-                        .addGap(95, 95, 95)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap()
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, loginLayout.createSequentialGroup()
+                        .addGap(153, 153, 153)
+                        .addGroup(loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(username)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         loginLayout.setVerticalGroup(
@@ -377,9 +369,7 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(44, 44, 44)
                 .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(120, Short.MAX_VALUE))
+                .addContainerGap(248, Short.MAX_VALUE))
         );
 
         menu.add(login, "login");
@@ -469,10 +459,9 @@ public class Login extends javax.swing.JFrame {
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("Mendaftar sebagai");
 
-        cbjenisKelamin.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Laki-laki", "Perempuan" }));
-        cbjenisKelamin.setBorder(null);
-
         cbjenisUser.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pengguna", "Pengrajin" }));
+
+        cbjenisKelamin.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "L", "P" }));
 
         javax.swing.GroupLayout registerLayout = new javax.swing.GroupLayout(register);
         register.setLayout(registerLayout);
@@ -506,8 +495,8 @@ public class Login extends javax.swing.JFrame {
                                 .addComponent(jLabel5)
                                 .addGap(130, 130, 130)))
                         .addGroup(registerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(cbjenisKelamin, 0, 100, Short.MAX_VALUE)
-                            .addComponent(cbjenisUser, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(cbjenisUser, 0, 100, Short.MAX_VALUE)
+                            .addComponent(cbjenisKelamin, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(152, Short.MAX_VALUE))
         );
         registerLayout.setVerticalGroup(
@@ -521,7 +510,7 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(tfUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(7, 7, 7)
+                .addGap(6, 6, 6)
                 .addGroup(registerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(cbjenisKelamin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -545,7 +534,7 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(tfRePassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addComponent(btnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38))
         );
@@ -560,7 +549,7 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(menu, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                    .addComponent(menu, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)))
             .addGroup(layout.createSequentialGroup()
                 .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, 999, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -581,6 +570,53 @@ public class Login extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    public boolean checkLogin(String username, String password, String Table ,String Atribut, User u){
+        boolean hasil = false;
+        u = usercontroller.loadByUsername(username,Table, Atribut);
+        if(username.equals(u.getUsername())&&password.equals(u.getPassword())){
+            hasil =true;
+        }else{
+            hasil = false;
+        }
+        return hasil;
+    }
+    
+    public boolean checkLogin(String username, String password, String Table, String Atribut, MPegawai u ){
+        boolean hasil = false;
+        u = pegawaicontroller.loadByUsername(username , Table , Atribut);
+        if(username.equals(u.getUsername())&&password.equals(u.getPassword())){
+            hasil =true;
+        }else{
+            hasil = false;
+        }
+        return hasil;
+    }
+    
+    public boolean checkTrue(String username, String password, String Table, String Atribut){
+        boolean hasil = false;
+
+        User u = usercontroller.loadByUsername(username,Table, Atribut);
+        if(username.equals(u.getUsername())&&password.equals(u.getPassword())){
+            hasil =true;
+        }else{
+            hasil = false;
+        }
+        return hasil;
+    }
+    
+     public boolean checkTrue(String angka, String Table, String Atribut){
+        boolean hasil = false;
+
+        User u = usercontroller.loadByUsername(angka,Table, Atribut);
+        if(username.equals(u.getUsername())&&password.equals(u.getPassword())){
+            hasil =true;
+        }else{
+            hasil = false;
+        }
+        return hasil;
+    }
+    
+    
     private void btnmenuLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmenuLoginActionPerformed
         cardLayout.show(menu, "login");
         bawahRegister.setBackground(new Color(0,128, 128));
@@ -606,21 +642,20 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_passwordActionPerformed
 
     private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseClicked
-        try {
-            sql = "SELECT * FROM pengguna WHERE username='"+username.getText()+"' AND password='"+password.getText()+"';";
-            rs = stat.executeQuery(sql);
-            if(rs.next()){
-                if(username.getText().equals(rs.getString("username")) && password.getText().equals(rs.getString("password"))){
-                    JOptionPane.showMessageDialog(null, "Berhasil login");
-                    new Pengguna().setVisible(true);
-                    this.dispose();
-                    
-                }
-            }else{
-                    JOptionPane.showMessageDialog(null, "Username atau password salah");
-                }
-        }catch (Exception e) {
-            JOptionPane.showMessageDialog(this, e.getMessage());
+        User u = null;
+        MPegawai p = null;
+        if(checkLogin(username.getText(),password.getText(),"Pengguna", "username_pengguna",u)){
+            JOptionPane.showMessageDialog(this, "Login berhasil");
+            new Pengguna(username.getText()).setVisible(true);
+            this.dispose();  
+        }else if(checkLogin(username.getText(),password.getText(),"Pengrajin", "username_pengrajin",u)){
+            JOptionPane.showMessageDialog(this, "Login berhasil");
+            new Pengrajin(username.getText()).setVisible(true);
+            this.dispose();
+        }else if(checkLogin(username.getText(),password.getText(),"Pegawai", "username_pegawai", p)){
+            JOptionPane.showMessageDialog(this, "Login berhasil");
+            new Pegawai(username.getText()).setVisible(true);
+            this.dispose();
         }
     }//GEN-LAST:event_btnLoginMouseClicked
 
@@ -699,53 +734,64 @@ public class Login extends javax.swing.JFrame {
 
     private void btnRegisterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegisterMouseClicked
         //jenisKelamin.getSelectedItem();
-   
-        try {  
-            sql = "SELECT username FROM pengguna WHERE username='"+tfUsername.getText()+"';";
-            rs = stat.executeQuery(sql);
-            if(tfNamaLengkap.getText().isEmpty() || tfUsername.getText().isEmpty() || tfAlamat.getText().isEmpty() || tfEmail.getText().isEmpty()){
-                JOptionPane.showMessageDialog(this, "Data belum terisi lengkap");
-            }else if(rs.next()){
-                JOptionPane.showMessageDialog(this, "Username sudah terdaftar sebelumnya"); 
-            }else if(tfPassword.getText().length()<5){
-                JOptionPane.showMessageDialog(this, "Password minimal 5 karakter"); 
-            }else if(!tfRePassword.getText().equals(tfPassword.getText())){
-                JOptionPane.showMessageDialog(this, "Password tidak singkron");
+        boolean check_pengguna = checkTrue(username.getText(),password.getText(),"Pengguna", "username_pengguna");
+        boolean check_pengrajin = checkTrue(username.getText(),password.getText(),"Pengrajin", "username_pengrajin");
+        boolean check_pegawai = checkTrue(username.getText(),password.getText(),"Pegawai", "username_pegawai");
+        
+        if(tfNamaLengkap.getText().isEmpty() || tfUsername.getText().isEmpty() || tfAlamat.getText().isEmpty() || tfEmail.getText().isEmpty() || tfPassword.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this, "Data belum terisi lengkap");
+        }else if(tfPassword.getText().length()<5){
+            JOptionPane.showMessageDialog(this, "Password minimal 5 karakter");
+        }else if(!tfRePassword.getText().equals(tfPassword.getText())){
+            JOptionPane.showMessageDialog(this, "Password tidak singkron");
+        }else if(check_pengguna||check_pengrajin||check_pegawai){
+            //----
+        }else{
+            User p = new User();
+            
+            p.setAlamat(tfAlamat.getText());
+            p.setEmail(tfEmail.getText());
+            p.setJenis_kelamin((String) cbjenisKelamin.getSelectedItem());
+            p.setPassword(tfPassword.getText());
+            p.setKode_branch("BR01");
+            p.setNama(tfNamaLengkap.getText());
+            if(cbjenisUser.getSelectedItem().equals("Pengguna")){
+                p.setUsername(tfUsername.getText()+"@pengguna");
+                p.setRekening((GenerateAngka("01","Pengguna", "Rekening")));
+                p.setSaldo(0);
+                usercontroller.insert(p, "Pengguna");
+                
+                JOptionPane.showMessageDialog(this, "Selamat anda telah terdaftar sebagai Pengguna\nBerikut adalah no rekening anda\n"+p.getRekening());
+                
+                cardLayout.show(menu, "login");
+                tfNamaLengkap.setText(null);
+                tfUsername.setText(null);
+                tfAlamat.setText(null);
+                tfEmail.setText(null);
+                tfPassword.setText(null);
+                tfRePassword.setText(null);
+                bawahRegister.setBackground(new Color(0,128, 128));
+                bawahLogin.setBackground(new Color(255,255,255));
+                
             }else{
-                if(cbjenisUser.getSelectedItem().equals("Pengguna")){
-                    Random number = new Random();
-                    int no = 0;
-                    for(int i=0; i<1000000; i++){
-                        no=number.nextInt(1000000);
-                        sqlrek = "SELECT rekening FROM pengguna WHERE rekening='"+no+"'";
-                        rsrek = stat.executeQuery(sqlrek);
-                        if((no>99999 && no<1000000) && rsrek.next()){
-                            //no aksi
-                        }else{
-
-                            String no_rek = Integer.toString(no);
-                            //stat.executeUpdate("INSERT INTO pengguna (id, nama, email, password, jk, alamat) values ('"+username.getText()+"', '"+fullname.getText()+"', '"+email.getText()+"', '"+password.getText()+"', '"+gender.getText()+"', '"+address.getText()+"')");
-                            //stat.executeUpdate("INSERT INTO rekening (no_rekening, saldo, pin, id) values ('"+no_rek+"', '"+0+"', '"+pin.getText()+"', '"+username.getText()+"')");
-
-                            break;
-                        }
-                    }
-                    
-                    
-                    JOptionPane.showMessageDialog(null, "Selamat anda telah terdaftar\nBerikut adalah no rekening milik anda\n");
-                    JOptionPane.showMessageDialog(this, no);
-                    cardLayout.show(menu, "login");
-                    bawahRegister.setBackground(new Color(0,128, 128));
-                    bawahLogin.setBackground(new Color(255,255,255));
-                    
-                    tfPassword.setText(null);
-                } else if(cbjenisUser.getSelectedItem().equals("Pengrajin")){
-                    JOptionPane.showMessageDialog(this, "masuk ke pengrajin");
-                }
+                p.setUsername(tfUsername.getText()+"@pengrajin");
+                p.setRekening((GenerateAngka("02","Pengrajin", "Rekening")));
+                p.setSaldo(0);
+                usercontroller.insert(p, "Pengrajin");
+                
+                JOptionPane.showMessageDialog(this, "Selamat anda telah terdaftar sebagai Pengrajin\nBerikut adalah no rekening anda\n"+p.getRekening());
+                
+                cardLayout.show(menu, "login");
+                tfNamaLengkap.setText(null);
+                tfUsername.setText(null);
+                tfAlamat.setText(null);
+                tfEmail.setText(null);
+                tfPassword.setText(null);
+                tfRePassword.setText(null);
+                bawahRegister.setBackground(new Color(0,128, 128));
+                bawahLogin.setBackground(new Color(255,255,255));
                 
             }
-        }catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "salah");
         }
     }//GEN-LAST:event_btnRegisterMouseClicked
 
@@ -786,6 +832,21 @@ public class Login extends javax.swing.JFrame {
             }
         });
     }
+    
+    public String GenerateAngka(String angka, String tabels, String coloum){
+        int no=0;
+        
+                Random number = new Random();
+                
+                for(int i=0; i<100000000; i++){
+                    no=number.nextInt(100000000);
+                    if(no>9999999 && !checkTrue(angka+Integer.toString(no),tabels, coloum)){
+                        break;
+                    } 
+                }
+            
+        return angka+Integer.toString(no);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bawahLogin;
@@ -814,7 +875,6 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel login;
     private javax.swing.JPanel menu;
     private javax.swing.JPasswordField password;
